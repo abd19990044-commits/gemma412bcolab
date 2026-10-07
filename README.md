@@ -6,7 +6,7 @@
 **شغّل Gemma 4 12B على Colab T4 المجاني واعرضه كواجهة API متوافقة مع OpenAI.**
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![Platform](https://img.shields.io/badge/Platform-Google%20Colab%20%7C%20Kaggle-orange)
+![Platform](https://img.shields.io/badge/Platform-Google%20Colab-orange)
 ![Backend](https://img.shields.io/badge/Backend-llama.cpp-green)
 ![API](https://img.shields.io/badge/API-OpenAI%20compatible-black)
 
@@ -60,7 +60,7 @@ llama-server :8000
 
 ## Requirements
 
-- Linux x86_64 with Python 3.10+ (Google Colab or Kaggle recommended).
+- Linux x86_64 with Python 3.10+ (designed for Google Colab).
 - An NVIDIA GPU (tested target: **Colab T4, 16 GB**). Without a GPU the script falls back to CPU, which is very slow for a 12B model.
 - Internet access to Google Drive, Hugging Face and GitHub (for `cloudflared`).
 - Python packages are installed automatically: `fastapi`, `uvicorn`, `httpx`, `huggingface_hub`, `gdown` (and `pyngrok` if an ngrok token is set).
@@ -175,7 +175,7 @@ All settings are environment variables (booleans accept `1/true/yes/on`).
 | `NGROK_DOMAIN` | – | Reserved ngrok domain |
 | `CLOUDFLARED_BIN` | `/tmp/cloudflared` | Where `cloudflared` is stored |
 
-> Secrets (`API_KEY`, `HF_TOKEN`, `NGROK_AUTH_TOKEN`) are read from environment variables first, then Colab Secrets, then Kaggle Secrets.
+> Secrets (`API_KEY`, `HF_TOKEN`, `NGROK_AUTH_TOKEN`) are read from environment variables first, then Colab Secrets.
 
 ## API Usage
 
@@ -315,7 +315,7 @@ curl https://xxxx.trycloudflare.com/v1/models -H "Authorization: Bearer <API_KEY
 - ⚠️ **The prebuilt `llama-server` is downloaded from a Google Drive link and executed.** Only use binaries you built or trust. Prefer publishing it as a GitHub Release with a SHA-256 checksum, or build `llama.cpp` yourself and point `LLAMA_SERVER_BIN` to it.
 - The tunnel makes the server **reachable from the whole internet**. Always keep API-key authentication enabled and never share the key or notebook output containing it.
 - CORS is open (`*`) by default; restrict it in `create_app()` if you embed the API in a web app.
-- Never commit tokens to the repository — use Colab/Kaggle Secrets or environment variables.
+- Never commit tokens to the repository — use Colab Secrets or environment variables.
 
 ## License
 
@@ -378,7 +378,7 @@ llama-server :8000
 
 ## المتطلبات
 
-- نظام Linux x86_64 مع Python 3.10 أو أحدث (يُفضَّل Google Colab أو Kaggle).
+- نظام Linux x86_64 مع Python 3.10 أو أحدث (مصمَّم للعمل على Google Colab).
 - كرت NVIDIA (الهدف المُجرَّب: **Colab T4 بذاكرة 16 GB**). بدون GPU يعمل السكربت على CPU وهو بطيء جداً لنموذج بحجم 12B.
 - اتصال بالإنترنت يصل إلى Google Drive وHugging Face وGitHub (لتنزيل `cloudflared`).
 - تُثبَّت الحزم تلقائياً: `fastapi` و `uvicorn` و `httpx` و `huggingface_hub` و `gdown` (و `pyngrok` إذا وُجد توكن ngrok).
@@ -509,7 +509,7 @@ os.environ["CTX_SIZE"] = "16384"
 | `NGROK_DOMAIN` | – | نطاق ngrok محجوز |
 | `CLOUDFLARED_BIN` | `/tmp/cloudflared` | مكان حفظ `cloudflared` |
 
-> تُقرأ المفاتيح (`API_KEY` و `HF_TOKEN` و `NGROK_AUTH_TOKEN`) من متغيرات البيئة أولاً، ثم Colab Secrets، ثم Kaggle Secrets.
+> تُقرأ المفاتيح (`API_KEY` و `HF_TOKEN` و `NGROK_AUTH_TOKEN`) من متغيرات البيئة أولاً، ثم Colab Secrets.
 
 ## استخدام الـ API
 
@@ -665,7 +665,7 @@ models:
 - ⚠️ **يتم تنزيل `llama-server` الجاهز من رابط Google Drive وتنفيذه.** استخدم فقط ملفات تنفيذية بنيتها بنفسك أو تثق بها. يُفضَّل نشره كـ GitHub Release مع بصمة SHA-256، أو بناء `llama.cpp` بنفسك وتمرير مساره عبر `LLAMA_SERVER_BIN`.
 - النفق يجعل الخادم **متاحاً للإنترنت بأكمله**. أبقِ مصادقة مفتاح API مفعّلة دائماً، ولا تشارك المفتاح أو مخرجات الدفتر التي تحتويه.
 - إعداد CORS مفتوح (`*`) افتراضياً؛ قيّده داخل `create_app()` إذا كنت ستستخدم الـ API من تطبيق ويب.
-- لا ترفع التوكنات إلى المستودع أبداً — استخدم Colab/Kaggle Secrets أو متغيرات البيئة.
+- لا ترفع التوكنات إلى المستودع أبداً — استخدم Colab Secrets أو متغيرات البيئة.
 
 ## الترخيص
 
