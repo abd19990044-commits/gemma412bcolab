@@ -14,6 +14,29 @@
 
 </div>
 
+## ⚡ Run in Colab in 2 lines · التشغيل في Colab بسطرين
+
+Select a **T4 GPU** runtime (**Runtime → Change runtime type**), then paste this into a single Colab cell:
+
+<div dir="rtl">
+
+اختر بيئة تشغيل **T4 GPU** (**Runtime ← Change runtime type**) ثم الصق هذا في خلية واحدة في Colab:
+
+</div>
+
+```python
+!wget -q -O gemma4_server.py https://raw.githubusercontent.com/abd19990044-commits/gemma412bcolab/main/gemma4_server.py
+%run gemma4_server.py
+```
+
+When the banner appears, copy the **Base URL** and **API key** into your client — details in [Quick Start](#quick-start-google-colab).
+
+<div dir="rtl">
+
+عند ظهور اللوحة انسخ **Base URL** و **API key** إلى تطبيقك — التفاصيل في [البدء السريع](#البدء-السريع-google-colab).
+
+</div>
+
 ---
 
 # English
@@ -76,13 +99,14 @@ llama-server :8000
    | `HF_TOKEN` | Hugging Face token (only if the repo needs authentication / to avoid rate limits) |
    | `NGROK_AUTH_TOKEN` | Use ngrok instead of Cloudflare |
 
-3. Get the script and run it:
+3. Download the script from GitHub and run it **inside the notebook** with `%run`:
 
-   ```bash
-   !git clone https://github.com/<your-username>/<your-repo>.git
-   %cd <your-repo>
-   !python gemma4_server.py
+   ```python
+   !wget -q -O gemma4_server.py https://raw.githubusercontent.com/abd19990044-commits/gemma412bcolab/main/gemma4_server.py
+   %run gemma4_server.py
    ```
+
+   > Use `%run` rather than `!python`: `%run` executes in the notebook's own process, so **Colab Secrets** (`API_KEY`, `HF_TOKEN`, `NGROK_AUTH_TOKEN`) can be read. A script started with `!python` runs in a separate process that generally cannot read Colab Secrets (it would silently fall back to a random API key and Cloudflare). To use `!python`, forward the secrets first — see below.
 
 4. Wait for the banner (the first run downloads the binary and the model, which takes a few minutes):
 
@@ -97,17 +121,24 @@ llama-server :8000
 
 5. Use the **Base URL**, **Model** and **API key** in your client.
 
-To override settings, set environment variables before running:
-
-```bash
-!CTX_SIZE=16384 ENABLE_THINKING=0 python gemma4_server.py
-```
-
-or, from Python in a notebook cell:
+To override settings, set environment variables in a cell **before** running the script:
 
 ```python
 import os
 os.environ["CTX_SIZE"] = "16384"
+os.environ["ENABLE_THINKING"] = "0"
+```
+
+If you prefer `!python`, forward your Colab Secrets to environment variables first:
+
+```python
+import os
+from google.colab import userdata
+for k in ("API_KEY", "HF_TOKEN", "NGROK_AUTH_TOKEN"):
+    try: os.environ[k] = userdata.get(k)
+    except Exception: pass   # secret not defined
+
+!python gemma4_server.py
 ```
 
 ### What happens on startup
@@ -319,7 +350,7 @@ curl https://xxxx.trycloudflare.com/v1/models -H "Authorization: Bearer <API_KEY
 
 ## License
 
-The code in this repository is released under the **MIT License** (replace with your preferred license and add a `LICENSE` file).
+The code in this repository is released under the **Apache License 2.0** — see [LICENSE](LICENSE).
 The Gemma model is governed by its own license / terms of use; `llama.cpp` is MIT-licensed. Please review them before commercial use.
 
 ## Acknowledgements
@@ -394,17 +425,18 @@ llama-server :8000
    | `HF_TOKEN` | توكن Hugging Face (عند الحاجة للمصادقة أو لتجنب حدود الطلبات) |
    | `NGROK_AUTH_TOKEN` | لاستخدام ngrok بدلاً من Cloudflare |
 
-3. حمّل السكربت وشغّله:
+3. حمّل السكربت من GitHub وشغّله **داخل الدفتر** باستخدام `%run`:
 
 <div dir="ltr">
 
-```bash
-!git clone https://github.com/<your-username>/<your-repo>.git
-%cd <your-repo>
-!python gemma4_server.py
+```python
+!wget -q -O gemma4_server.py https://raw.githubusercontent.com/abd19990044-commits/gemma412bcolab/main/gemma4_server.py
+%run gemma4_server.py
 ```
 
 </div>
+
+> استخدم `%run` بدلاً من `!python`: فهو يعمل داخل عملية الدفتر نفسها، لذلك يمكنه قراءة **Colab Secrets** (`API_KEY` و `HF_TOKEN` و `NGROK_AUTH_TOKEN`). أما `!python` فيشغّل السكربت في عملية منفصلة لا تستطيع عادةً قراءة Colab Secrets (فيعود بصمت إلى مفتاح API عشوائي وإلى Cloudflare). وإن أردت استخدام `!python` فمرّر المفاتيح أولاً — انظر أدناه.
 
 4. انتظر ظهور اللوحة التالية (في أول تشغيل يتم تنزيل الملف التنفيذي والنموذج، وقد يستغرق بضع دقائق):
 
@@ -423,23 +455,30 @@ API key  : sk-...
 
 5. استخدم **Base URL** و **Model** و **API key** في تطبيقك.
 
-لتغيير الإعدادات، عرّف متغيرات البيئة قبل التشغيل:
-
-<div dir="ltr">
-
-```bash
-!CTX_SIZE=16384 ENABLE_THINKING=0 python gemma4_server.py
-```
-
-</div>
-
-أو من بايثون داخل خلية في الدفتر:
+لتغيير الإعدادات، عرّف متغيرات البيئة في خلية **قبل** تشغيل السكربت:
 
 <div dir="ltr">
 
 ```python
 import os
 os.environ["CTX_SIZE"] = "16384"
+os.environ["ENABLE_THINKING"] = "0"
+```
+
+</div>
+
+وإذا فضّلت `!python` فمرّر مفاتيح Colab Secrets إلى متغيرات البيئة أولاً:
+
+<div dir="ltr">
+
+```python
+import os
+from google.colab import userdata
+for k in ("API_KEY", "HF_TOKEN", "NGROK_AUTH_TOKEN"):
+    try: os.environ[k] = userdata.get(k)
+    except Exception: pass   # secret not defined
+
+!python gemma4_server.py
 ```
 
 </div>
@@ -669,7 +708,7 @@ models:
 
 ## الترخيص
 
-شيفرة هذا المستودع مرخّصة بموجب **رخصة MIT** (استبدلها بالرخصة التي تفضّلها وأضف ملف `LICENSE`).
+شيفرة هذا المستودع مرخّصة بموجب **Apache License 2.0** — راجع ملف [LICENSE](LICENSE).
 نموذج Gemma له رخصة وشروط استخدام خاصة به، و`llama.cpp` بترخيص MIT. يرجى مراجعتها قبل أي استخدام تجاري.
 
 ## شكر وتقدير
