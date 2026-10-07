@@ -4,7 +4,8 @@
 
 **Run Gemma 4 12B (GGUF) on a free Colab T4 and expose it as an OpenAI-compatible API.**
 **شغّل Gemma 4 12B على Colab T4 المجاني واعرضه كواجهة API متوافقة مع OpenAI.**
-
+** Run ass agent in your PC using ![Chatbox AI](https://github.com/chatboxai/chatbox) is Recommended ** 
+** اذا اردت تشغيله كعميل على كومبيوترك الشخصي يوصى باستخدام ![Chatbox AI](https://github.com/chatboxai/chatbox) مع اختيار مزود openAI ** 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Platform](https://img.shields.io/badge/Platform-Google%20Colab-orange)
 ![Backend](https://img.shields.io/badge/Backend-llama.cpp-green)
@@ -62,7 +63,7 @@ A single, self-contained Python script that:
 - **Per-IP rate limiting**, open CORS, and a maximum request body size.
 - **Supervisor** — restarts `llama-server` if it crashes (gives up after 5 crashes in 30 minutes).
 - **Self-test** on startup (plain chat + tool calling).
-- **Multi-GPU** support (tensor split) and automatic **CPU fallback** (slow).
+- **Multi-GPU** support (tensor split)****
 
 ## Architecture
 
@@ -84,7 +85,7 @@ llama-server :8000
 ## Requirements
 
 - Linux x86_64 with Python 3.10+ (designed for Google Colab).
-- An NVIDIA GPU (tested target: **Colab T4, 16 GB**). Without a GPU the script falls back to CPU, which is very slow for a 12B model.
+- An NVIDIA GPU (tested target: **Colab T4, 16 GB**). Without a GPU it fail.
 - Internet access to Google Drive, Hugging Face and GitHub (for `cloudflared`).
 - Python packages are installed automatically: `fastapi`, `uvicorn`, `httpx`, `huggingface_hub`, `gdown` (and `pyngrok` if an ngrok token is set).
 
@@ -334,7 +335,6 @@ curl https://xxxx.trycloudflare.com/v1/models -H "Authorization: Bearer <API_KEY
 |---|---|
 | `error while loading shared libraries` | Make sure the Drive archive contains the `.so` files next to the binary. Run with `LLAMA_VERBOSE=1` to see the full log |
 | CUDA out of memory | Lower `CTX_SIZE` (e.g. `16384` or `8192`), keep `PARALLEL=1` |
-| Running on CPU / very slow | No GPU detected — enable **T4 GPU** in the Colab runtime settings |
 | `gdown` fails / quota exceeded | Make sure the file is shared as *Anyone with the link*, retry later, or host the binary elsewhere and set `LLAMA_SERVER_BIN` |
 | `503 Model is still loading` | Wait; the first start downloads and loads a multi-GB model |
 | `401 Invalid API key` | Use the key printed in the banner, or set `API_KEY` in Colab Secrets |
@@ -384,7 +384,7 @@ The Gemma model is governed by its own license / terms of use; `llama.cpp` is MI
 - **تحديد معدل الطلبات لكل IP**، وCORS مفتوح، وحد أقصى لحجم الطلب.
 - **مراقب للعملية** — يعيد تشغيل `llama-server` عند التعطل (ويتوقف بعد 5 أعطال خلال 30 دقيقة).
 - **اختبار ذاتي** عند الإقلاع (محادثة عادية + استدعاء أداة).
-- دعم **عدة كروت GPU** (tensor split) و**الرجوع التلقائي إلى CPU** (بطيء).
+- دعم **عدة كروت GPU (tensor split) **.
 
 ## البنية
 
@@ -410,7 +410,7 @@ llama-server :8000
 ## المتطلبات
 
 - نظام Linux x86_64 مع Python 3.10 أو أحدث (مصمَّم للعمل على Google Colab).
-- كرت NVIDIA (الهدف المُجرَّب: **Colab T4 بذاكرة 16 GB**). بدون GPU يعمل السكربت على CPU وهو بطيء جداً لنموذج بحجم 12B.
+- كرت NVIDIA (الهدف المُجرَّب: **Colab T4 بذاكرة 16 GB**).
 - اتصال بالإنترنت يصل إلى Google Drive وHugging Face وGitHub (لتنزيل `cloudflared`).
 - تُثبَّت الحزم تلقائياً: `fastapi` و `uvicorn` و `httpx` و `huggingface_hub` و `gdown` (و `pyngrok` إذا وُجد توكن ngrok).
 
@@ -692,7 +692,6 @@ models:
 |---|---|
 | `error while loading shared libraries` | تأكد أن أرشيف Drive يحتوي ملفات `.so` بجانب الملف التنفيذي، وشغّل مع `LLAMA_VERBOSE=1` لرؤية السجل الكامل |
 | نفاد ذاكرة CUDA | قلّل `CTX_SIZE` (مثلاً `16384` أو `8192`) وأبقِ `PARALLEL=1` |
-| العمل على CPU / بطء شديد | لم يُكتشف GPU — فعّل **T4 GPU** من إعدادات بيئة التشغيل في Colab |
 | فشل `gdown` / تجاوز الحصة | تأكد أن الملف مشارَك بصيغة *Anyone with the link*، أعد المحاولة لاحقاً، أو استضف الملف في مكان آخر وحدد `LLAMA_SERVER_BIN` |
 | `503 Model is still loading` | انتظر قليلاً؛ أول تشغيل ينزّل ويحمّل نموذجاً بحجم عدة جيجابايت |
 | `401 Invalid API key` | استخدم المفتاح المطبوع في اللوحة أو عيّن `API_KEY` في Colab Secrets |
