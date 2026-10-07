@@ -16,7 +16,7 @@
 
 ** اذا اردت تشغيله كعميل على كومبيوترك الشخصي يوصى باستخدام ![Chatbox AI](https://github.com/chatboxai/chatbox) مع اختيار مزود openAI ** 
 
-
+** لاستخدامه في VS  ينصح باضافة CLINE  وتشغيله باستخدام LLAMA **
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Platform](https://img.shields.io/badge/Platform-Google%20Colab-orange)
@@ -324,7 +324,7 @@ curl https://xxxx.trycloudflare.com/v1/models -H "Authorization: Bearer <API_KEY
 
 1. Install **Cline** or **Roo Code** from the Extensions view.
 2. Open the extension and click the ⚙️ **Settings** icon.
-3. Set **API Provider** to **OpenAI Compatible**.
+3. Set **API Provider** to **OpenAI Compatible** or **Llama**.
 4. Fill in:
    - **Base URL**: `https://xxxx.trycloudflare.com/v1`
    - **API Key**: `sk-...`
