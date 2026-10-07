@@ -3,11 +3,17 @@
 # 🤖 Gemma 4 (12B) — OpenAI-Compatible Server on Google Colab
 
 **Run Gemma 4 12B (GGUF) on a free Colab T4 and expose it as an OpenAI-compatible API.**
+
+
+
 **شغّل Gemma 4 12B على Colab T4 المجاني واعرضه كواجهة API متوافقة مع OpenAI.**
 
 
 
 ** Run ass agent in your PC using ![Chatbox AI](https://github.com/chatboxai/chatbox) is Recommended ** 
+
+
+
 ** اذا اردت تشغيله كعميل على كومبيوترك الشخصي يوصى باستخدام ![Chatbox AI](https://github.com/chatboxai/chatbox) مع اختيار مزود openAI ** 
 
 
