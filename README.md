@@ -10,13 +10,8 @@
 
 
 
-** Run ass agent in your PC using ![Chatbox AI](https://github.com/chatboxai/chatbox) is Recommended ** 
-
-
-
-** اذا اردت تشغيله كعميل على كومبيوترك الشخصي يوصى باستخدام ![Chatbox AI](https://github.com/chatboxai/chatbox) مع اختيار مزود openAI ** 
-
 ** لاستخدامه في VS  ينصح باضافة CLINE  وتشغيله باستخدام LLAMA **
+
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Platform](https://img.shields.io/badge/Platform-Google%20Colab-orange)
